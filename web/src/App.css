@@ -1,0 +1,2185 @@
+/* =========================================
+   SISTEMA VISUAL DEL HERO
+========================================= */
+
+.hero-system {
+  position: absolute;
+  z-index: 3;
+  top: 108px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  color: #6f6f6f;
+
+  font-family: "Courier New", monospace;
+  font-size: 8px;
+  letter-spacing: 1.5px;
+  line-height: 1.4;
+}
+
+.hero-system-left {
+  left: 5%;
+}
+
+.hero-system-right {
+  right: 5%;
+  text-align: right;
+}
+
+.system-online {
+  color: #7dff69;
+}
+
+.hero-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.label-line {
+  display: block;
+  width: 28px;
+  height: 2px;
+  background: var(--yellow);
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+}
+
+/* Desactivamos el portal plano anterior */
+
+.portal::before,
+.portal::after {
+  content: none;
+}
+
+/* =========================================
+   PORTAL 3D
+========================================= */
+
+.portal {
+  perspective: 900px;
+  transform-style: preserve-3d;
+}
+
+.portal-glow {
+  position: absolute;
+  inset: 5%;
+
+  border: 1px solid rgba(255, 214, 0, 0.55);
+
+  box-shadow:
+    0 0 80px rgba(255, 214, 0, 0.22),
+    inset 0 0 90px rgba(255, 214, 0, 0.12);
+
+  transform: rotate(45deg);
+
+  animation: glow-pulse 4s ease-in-out infinite;
+}
+
+.cube {
+  position: absolute;
+  inset: 28%;
+
+  transform-style: preserve-3d;
+
+  transform:
+    rotateX(calc(-18deg + var(--mouse-y, 0) * 6deg))
+    rotateY(calc(32deg + var(--mouse-x, 0) * 10deg));
+
+  animation: cube-float 5s ease-in-out infinite;
+
+  transition: transform 0.1s linear;
+}
+
+.cube-face {
+  position: absolute;
+  inset: 0;
+
+  border: 2px solid var(--yellow);
+
+  background: rgba(10, 10, 8, 0.82);
+
+  box-shadow:
+    inset 0 0 45px rgba(255, 214, 0, 0.13),
+    0 0 20px rgba(255, 214, 0, 0.08);
+
+  backface-visibility: visible;
+}
+
+.cube-front {
+  display: grid;
+  place-items: center;
+
+  transform: translateZ(95px);
+}
+
+.cube-front span {
+  color: var(--yellow);
+
+  font-size: clamp(30px, 5vw, 70px);
+  font-weight: 800;
+
+  text-shadow:
+    3px 0 var(--cyan),
+    -3px 0 var(--magenta);
+}
+
+.cube-back {
+  transform: rotateY(180deg) translateZ(95px);
+}
+
+.cube-right {
+  transform: rotateY(90deg) translateZ(95px);
+}
+
+.cube-left {
+  transform: rotateY(-90deg) translateZ(95px);
+}
+
+.cube-top {
+  transform: rotateX(90deg) translateZ(95px);
+}
+
+.cube-bottom {
+  transform: rotateX(-90deg) translateZ(95px);
+}
+
+/* =========================================
+   ÓRBITAS DEL PORTAL
+========================================= */
+
+.portal-orbit {
+  position: absolute;
+
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.portal-orbit-one {
+  inset: 8%;
+
+  border: 1px solid rgba(255, 255, 255, 0.18);
+
+  transform: rotateX(70deg);
+
+  animation: orbit-one 9s linear infinite;
+}
+
+.portal-orbit-two {
+  inset: 14%;
+
+  border: 1px solid rgba(0, 232, 255, 0.35);
+
+  transform: rotateY(65deg);
+
+  animation: orbit-two 12s linear infinite reverse;
+}
+
+/* =========================================
+   INDICADOR DE SCROLL
+========================================= */
+
+.scroll-indicator {
+  position: absolute;
+  z-index: 3;
+
+  left: 5%;
+  bottom: 28px;
+
+  display: flex;
+  align-items: flex-end;
+  gap: 15px;
+
+  color: #686868;
+
+  font-family: "Courier New", monospace;
+  font-size: 8px;
+  letter-spacing: 1.5px;
+  line-height: 1.4;
+}
+
+.scroll-indicator strong {
+  color: var(--yellow);
+  font-size: 20px;
+
+  animation: scroll-movement 1.8s ease-in-out infinite;
+}
+
+/* =========================================
+   ANIMACIONES 3D
+========================================= */
+
+@keyframes glow-pulse {
+  50% {
+    opacity: 0.45;
+    scale: 0.94;
+  }
+}
+
+@keyframes cube-float {
+  50% {
+    translate: 0 -12px;
+  }
+}
+
+@keyframes orbit-one {
+  to {
+    rotate: 360deg;
+  }
+}
+
+@keyframes orbit-two {
+  to {
+    rotate: -360deg;
+  }
+}
+
+@keyframes scroll-movement {
+  50% {
+    transform: translateY(7px);
+  }
+}
+
+/* =========================================
+   AJUSTES PARA CELULAR
+========================================= */
+
+@media (max-width: 900px) {
+  .hero-system-right {
+    display: none;
+  }
+
+  .hero-system {
+    top: 88px;
+  }
+
+  .cube-front {
+    transform: translateZ(65px);
+  }
+
+  .cube-back {
+    transform: rotateY(180deg) translateZ(65px);
+  }
+
+  .cube-right {
+    transform: rotateY(90deg) translateZ(65px);
+  }
+
+  .cube-left {
+    transform: rotateY(-90deg) translateZ(65px);
+  }
+
+  .cube-top {
+    transform: rotateX(90deg) translateZ(65px);
+  }
+
+  .cube-bottom {
+    transform: rotateX(-90deg) translateZ(65px);
+  }
+}
+
+@media (max-width: 600px) {
+  .scroll-indicator {
+    display: none;
+  }
+}
+
+
+/* =========================================
+   FRANJA ANIMADA DE SERVICIOS
+========================================= */
+
+.services-ticker {
+  position: relative;
+  z-index: 10;
+
+  width: 102%;
+  margin-left: -1%;
+
+  overflow: hidden;
+
+  background: var(--yellow);
+  color: var(--black);
+
+  transform: rotate(-1deg);
+}
+
+.ticker-track {
+  width: max-content;
+  padding: 15px 0;
+
+  display: flex;
+  align-items: center;
+  gap: 28px;
+
+  white-space: nowrap;
+
+  font-family: "Courier New", monospace;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 1px;
+
+  animation: ticker-movement 28s linear infinite;
+}
+
+.ticker-track b {
+  font-size: 13px;
+}
+
+.services-ticker:hover .ticker-track {
+  animation-play-state: paused;
+}
+
+@keyframes ticker-movement {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* =========================================
+   MANIFIESTO OTB
+========================================= */
+
+.manifesto {
+  position: relative;
+
+  min-height: 100vh;
+  padding: 130px 6%;
+
+  display: grid;
+  grid-template-columns: minmax(280px, 0.65fr) 1.35fr;
+  align-items: center;
+  gap: 8%;
+
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at 20% 50%,
+      rgba(0, 232, 255, 0.08),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 85% 30%,
+      rgba(255, 43, 214, 0.06),
+      transparent 30%
+    ),
+    var(--black);
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.manifesto::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background-image:
+    linear-gradient(
+      rgba(255, 255, 255, 0.035) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.035) 1px,
+      transparent 1px
+    );
+
+  background-size: 80px 80px;
+
+  mask-image: radial-gradient(
+    circle at center,
+    black,
+    transparent 80%
+  );
+}
+
+.manifesto-background-text {
+  position: absolute;
+  z-index: 0;
+
+  right: -40px;
+  bottom: -20px;
+
+  color: transparent;
+
+  font-size: clamp(80px, 14vw, 230px);
+  font-weight: 800;
+  line-height: 0.75;
+  letter-spacing: -12px;
+  white-space: nowrap;
+
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.045);
+
+  user-select: none;
+}
+
+/* =========================================
+   LOGO DEL MANIFIESTO
+========================================= */
+
+.manifesto-logo {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  justify-content: center;
+}
+
+.manifesto-logo::before {
+  content: "";
+
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+
+  width: 78%;
+  aspect-ratio: 1;
+
+  border: 1px solid rgba(255, 214, 0, 0.35);
+
+  transform:
+    translate(-50%, -50%)
+    rotate(45deg);
+
+  box-shadow:
+    0 0 80px rgba(255, 214, 0, 0.12),
+    inset 0 0 80px rgba(255, 214, 0, 0.06);
+
+  animation: logo-frame 8s linear infinite;
+}
+
+.manifesto-logo::after {
+  content: "OFFICIAL_IDENTITY_01";
+
+  position: absolute;
+
+  left: 0;
+  bottom: 6%;
+
+  padding: 8px 10px;
+
+  background: var(--yellow);
+  color: var(--black);
+
+  font-family: "Courier New", monospace;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.manifesto-logo img {
+  position: relative;
+  z-index: 2;
+
+  width: min(100%, 430px);
+  max-height: 650px;
+
+  display: block;
+
+  object-fit: contain;
+
+  filter:
+    drop-shadow(4px 0 0 rgba(0, 232, 255, 0.2))
+    drop-shadow(-4px 0 0 rgba(255, 43, 214, 0.18));
+
+  transition:
+    transform 0.5s ease,
+    filter 0.5s ease;
+}
+
+.manifesto-logo:hover img {
+  transform: scale(1.025);
+
+  filter:
+    drop-shadow(7px 0 0 rgba(0, 232, 255, 0.35))
+    drop-shadow(-7px 0 0 rgba(255, 43, 214, 0.3));
+}
+
+@keyframes logo-frame {
+  to {
+    rotate: 360deg;
+  }
+}
+
+/* =========================================
+   CONTENIDO DEL MANIFIESTO
+========================================= */
+
+.manifesto-content {
+  position: relative;
+  z-index: 3;
+}
+
+.section-label {
+  margin: 0 0 35px;
+
+  color: var(--yellow);
+
+  font-family: "Courier New", monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.manifesto-intro {
+  position: absolute;
+
+  top: 0;
+  right: 0;
+
+  margin: 0;
+
+  color: #777777;
+
+  font-family: "Courier New", monospace;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1.5;
+  letter-spacing: 1px;
+}
+
+.manifesto h2 {
+  margin: 0;
+
+  font-size: clamp(48px, 6.7vw, 110px);
+  font-weight: 800;
+  line-height: 0.87;
+  letter-spacing: -6px;
+}
+
+.manifesto h2 span {
+  color: var(--yellow);
+
+  text-shadow:
+    3px 0 rgba(0, 232, 255, 0.3),
+    -3px 0 rgba(255, 43, 214, 0.25);
+}
+
+.manifesto-description {
+  max-width: 570px;
+  margin: 45px 0 0 auto;
+
+  color: #aaaaaa;
+
+  font-size: 18px;
+  line-height: 1.7;
+}
+
+.manifesto-link {
+  width: max-content;
+  margin: 35px 0 0 auto;
+  padding-bottom: 8px;
+
+  display: flex;
+  align-items: center;
+  gap: 25px;
+
+  border-bottom: 1px solid var(--yellow);
+
+  color: var(--white);
+
+  font-family: "Courier New", monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+
+  transition: 0.25s ease;
+}
+
+.manifesto-link span {
+  color: var(--yellow);
+  font-size: 18px;
+}
+
+.manifesto-link:hover {
+  color: var(--yellow);
+  transform: translateX(5px);
+}
+
+/* =========================================
+   MANIFIESTO RESPONSIVE
+========================================= */
+
+@media (max-width: 900px) {
+  .manifesto {
+    padding: 100px 24px;
+
+    grid-template-columns: 1fr;
+    gap: 80px;
+  }
+
+  .manifesto-logo {
+    order: 2;
+  }
+
+  .manifesto-logo img {
+    width: min(100%, 350px);
+  }
+
+  .manifesto-content {
+    order: 1;
+  }
+
+  .manifesto-intro {
+    position: static;
+    margin-bottom: 30px;
+  }
+
+  .manifesto-description,
+  .manifesto-link {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .ticker-track {
+    padding: 13px 0;
+    gap: 22px;
+    font-size: 12px;
+  }
+
+  .manifesto {
+    padding-top: 85px;
+    padding-bottom: 85px;
+  }
+
+  .manifesto h2 {
+    font-size: clamp(42px, 13vw, 68px);
+    letter-spacing: -4px;
+  }
+
+  .manifesto-description {
+    font-size: 16px;
+  }
+
+  .manifesto-logo::after {
+    left: 10px;
+  }
+}
+
+
+
+/* =========================================
+   SECCIÓN DE SERVICIOS
+========================================= */
+
+.services-section {
+  position: relative;
+
+  padding: 130px 6%;
+
+  background: #f2f0e9;
+  color: #080808;
+
+  overflow: hidden;
+}
+
+.services-section::before {
+  content: "OTB";
+
+  position: absolute;
+
+  top: -70px;
+  right: -35px;
+
+  color: transparent;
+
+  font-size: clamp(180px, 28vw, 450px);
+  font-weight: 900;
+  line-height: 1;
+
+  -webkit-text-stroke: 1px rgba(0, 0, 0, 0.045);
+
+  pointer-events: none;
+}
+
+.services-header {
+  position: relative;
+  z-index: 2;
+
+  margin-bottom: 80px;
+
+  display: grid;
+  grid-template-columns: 1.5fr 0.5fr;
+  gap: 8%;
+  align-items: end;
+}
+
+.services-section .section-label {
+  color: #8a7300;
+}
+
+.services-title h2 {
+  margin: 0;
+
+  font-size: clamp(48px, 7vw, 110px);
+  font-weight: 800;
+  line-height: 0.87;
+  letter-spacing: -7px;
+}
+
+.services-title h2 span {
+  color: #b69800;
+}
+
+.services-introduction {
+  padding-bottom: 5px;
+}
+
+.services-introduction > p {
+  margin: 0 0 35px;
+
+  color: #5d5d5d;
+
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+.services-counter {
+  padding-top: 18px;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  border-top: 1px solid rgba(0, 0, 0, 0.25);
+
+  font-family: "Courier New", monospace;
+}
+
+.services-counter span {
+  color: #777777;
+
+  font-size: 8px;
+  letter-spacing: 1px;
+}
+
+.services-counter strong {
+  color: #080808;
+
+  font-size: 38px;
+  line-height: 0.8;
+}
+
+/* =========================================
+   GRILLA DE SERVICIOS
+========================================= */
+
+.services-grid {
+  position: relative;
+  z-index: 2;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  border-top: 1px solid #b9b7b0;
+  border-left: 1px solid #b9b7b0;
+}
+
+/* =========================================
+   TARJETA DE SERVICIO
+========================================= */
+
+.service-card {
+  position: relative;
+
+  min-height: 430px;
+  padding: 28px;
+
+  display: flex;
+  flex-direction: column;
+
+  border-right: 1px solid #b9b7b0;
+  border-bottom: 1px solid #b9b7b0;
+
+  background: rgba(242, 240, 233, 0.85);
+
+  overflow: hidden;
+
+  transition:
+    background 0.35s ease,
+    color 0.35s ease,
+    transform 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.service-card::before {
+  content: "";
+
+  position: absolute;
+
+  width: 180px;
+  height: 180px;
+
+  top: -130px;
+  right: -130px;
+
+  border-radius: 50%;
+
+  background: var(--yellow);
+
+  transition:
+    width 0.45s ease,
+    height 0.45s ease,
+    top 0.45s ease,
+    right 0.45s ease;
+}
+
+.service-card:hover {
+  z-index: 5;
+
+  background: #090909;
+  color: var(--white);
+
+  transform: translateY(-8px);
+
+  box-shadow:
+    0 25px 50px rgba(0, 0, 0, 0.22),
+    8px 0 var(--cyan),
+    -8px 0 var(--magenta);
+}
+
+.service-card:hover::before {
+  width: 280px;
+  height: 280px;
+
+  top: -210px;
+  right: -190px;
+}
+
+/* =========================================
+   PARTE SUPERIOR DE LA TARJETA
+========================================= */
+
+.service-card-top {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.service-number {
+  color: #767676;
+
+  font-family: "Courier New", monospace;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.service-arrow {
+  color: #080808;
+
+  font-family: "Courier New", monospace;
+  font-size: 22px;
+
+  transition:
+    color 0.3s ease,
+    transform 0.3s ease;
+}
+
+.service-card:hover .service-arrow {
+  color: var(--yellow);
+  transform: translate(4px, -4px);
+}
+
+/* =========================================
+   VISUAL TÉCNICO DE LA TARJETA
+========================================= */
+
+.service-visual {
+  position: relative;
+  z-index: 2;
+
+  height: 115px;
+  margin: 30px 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+
+  transition: border-color 0.3s ease;
+}
+
+.service-card:hover .service-visual {
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.service-visual > span {
+  max-width: 120px;
+
+  color: #808080;
+
+  font-family: "Courier New", monospace;
+  font-size: 8px;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: 1px;
+}
+
+.service-visual-box {
+  position: relative;
+
+  width: 75px;
+  height: 75px;
+
+  transform: rotate(45deg);
+
+  transition: transform 0.6s ease;
+}
+
+.service-card:hover .service-visual-box {
+  transform: rotate(135deg) scale(1.08);
+}
+
+.service-visual-box div {
+  position: absolute;
+
+  border: 1px solid #111111;
+
+  transition: border-color 0.3s ease;
+}
+
+.service-visual-box div:nth-child(1) {
+  inset: 0;
+}
+
+.service-visual-box div:nth-child(2) {
+  inset: 12px;
+}
+
+.service-visual-box div:nth-child(3) {
+  inset: 24px;
+
+  background: var(--yellow);
+  border-color: var(--yellow);
+}
+
+.service-card:hover .service-visual-box div {
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.service-card:hover .service-visual-box div:nth-child(3) {
+  border-color: var(--yellow);
+}
+
+/* =========================================
+   CONTENIDO DE LA TARJETA
+========================================= */
+
+.service-content {
+  position: relative;
+  z-index: 2;
+
+  margin-top: auto;
+}
+
+.service-content h3 {
+  margin: 0 0 15px;
+
+  font-size: 27px;
+  line-height: 1;
+  letter-spacing: -1px;
+}
+
+.service-content p {
+  margin: 0;
+
+  color: #666666;
+
+  font-size: 14px;
+  line-height: 1.65;
+
+  transition: color 0.3s ease;
+}
+
+.service-card:hover .service-content p {
+  color: #aaaaaa;
+}
+
+/* =========================================
+   TECNOLOGÍAS
+========================================= */
+
+.service-technologies {
+  position: relative;
+  z-index: 2;
+
+  margin-top: 25px;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.service-technologies span {
+  padding: 6px 8px;
+
+  border: 1px solid rgba(0, 0, 0, 0.18);
+
+  color: #676767;
+
+  font-family: "Courier New", monospace;
+  font-size: 7px;
+  font-weight: 700;
+  letter-spacing: 0.7px;
+
+  transition:
+    color 0.3s ease,
+    border-color 0.3s ease,
+    background 0.3s ease;
+}
+
+.service-card:hover .service-technologies span {
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #cccccc;
+}
+
+.service-card:hover .service-technologies span:first-child {
+  border-color: var(--yellow);
+  background: var(--yellow);
+  color: #080808;
+}
+
+.service-card-line {
+  position: absolute;
+
+  left: 28px;
+  bottom: 0;
+
+  width: 45px;
+  height: 4px;
+
+  background: var(--yellow);
+
+  transition: width 0.4s ease;
+}
+
+.service-card:hover .service-card-line {
+  width: calc(100% - 56px);
+}
+
+/* =========================================
+   AI CREATIVE LAB DESTACADO
+========================================= */
+
+.service-card:last-child {
+  grid-column: 1 / -1;
+
+  min-height: 320px;
+
+  display: grid;
+  grid-template-columns: 0.45fr 0.75fr 1.2fr;
+  grid-template-rows: auto 1fr;
+  gap: 20px 50px;
+
+  background:
+    radial-gradient(
+      circle at 15% 50%,
+      rgba(255, 214, 0, 0.16),
+      transparent 28%
+    ),
+    #0a0a0a;
+
+  color: var(--white);
+}
+
+.service-card:last-child .service-card-top {
+  grid-column: 1 / -1;
+}
+
+.service-card:last-child .service-visual {
+  grid-column: 1;
+  grid-row: 2;
+
+  margin: 0;
+
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.service-card:last-child .service-content {
+  grid-column: 2;
+  grid-row: 2;
+
+  margin: auto 0;
+}
+
+.service-card:last-child .service-content h3 {
+  color: var(--yellow);
+  font-size: clamp(32px, 4vw, 58px);
+}
+
+.service-card:last-child .service-content p {
+  color: #aaaaaa;
+}
+
+.service-card:last-child .service-technologies {
+  grid-column: 3;
+  grid-row: 2;
+
+  margin: auto 0;
+}
+
+.service-card:last-child .service-technologies span {
+  padding: 10px 12px;
+
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #cccccc;
+}
+
+.service-card:last-child .service-technologies span:first-child {
+  border-color: var(--yellow);
+  background: var(--yellow);
+  color: #080808;
+}
+
+.service-card:last-child .service-arrow {
+  color: var(--yellow);
+}
+
+.service-card:last-child .service-visual-box div {
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* =========================================
+   RESPONSIVE DE SERVICIOS
+========================================= */
+
+@media (max-width: 1050px) {
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .service-card:last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 900px) {
+  .services-section {
+    padding: 100px 24px;
+  }
+
+  .services-header {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .services-title h2 {
+    letter-spacing: -5px;
+  }
+
+  .services-introduction {
+    max-width: 550px;
+  }
+
+  .service-card:last-child {
+    display: flex;
+  }
+
+  .service-card:last-child .service-card-top,
+  .service-card:last-child .service-visual,
+  .service-card:last-child .service-content,
+  .service-card:last-child .service-technologies {
+    display: flex;
+  }
+
+  .service-card:last-child .service-card-top {
+    justify-content: space-between;
+  }
+
+  .service-card:last-child .service-visual {
+    width: 100%;
+  }
+
+  .service-card:last-child .service-content {
+    display: block;
+  }
+
+  .service-card:last-child .service-technologies {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 650px) {
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .service-card {
+    min-height: 390px;
+  }
+
+  .service-card:last-child {
+    grid-column: auto;
+    min-height: 430px;
+  }
+
+  .services-title h2 {
+    font-size: clamp(42px, 13vw, 68px);
+    letter-spacing: -4px;
+  }
+}
+
+
+
+/* =========================================
+   SECCIÓN DE PROYECTOS
+========================================= */
+
+.projects-section {
+  position: relative;
+
+  padding: 140px 6%;
+
+  background: #070707;
+  color: var(--white);
+
+  overflow: hidden;
+}
+
+.projects-section::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent 49.9%,
+      rgba(255, 255, 255, 0.04) 50%,
+      transparent 50.1%
+    ),
+    linear-gradient(
+      rgba(255, 255, 255, 0.025) 1px,
+      transparent 1px
+    );
+
+  background-size:
+    100% 100%,
+    100% 70px;
+
+  pointer-events: none;
+}
+
+/* =========================================
+   ENCABEZADO DE PROYECTOS
+========================================= */
+
+.projects-header {
+  position: relative;
+  z-index: 2;
+
+  margin-bottom: 85px;
+
+  display: grid;
+  grid-template-columns: 1.5fr 0.5fr;
+  gap: 8%;
+  align-items: end;
+}
+
+.projects-header h2 {
+  margin: 0;
+
+  font-size: clamp(48px, 7vw, 110px);
+  font-weight: 800;
+  line-height: 0.87;
+  letter-spacing: -7px;
+}
+
+.projects-header h2 span {
+  color: var(--yellow);
+}
+
+.projects-header-description p {
+  margin: 0 0 30px;
+
+  color: #999999;
+
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+.projects-header-description > span {
+  color: #616161;
+
+  font-family: "Courier New", monospace;
+  font-size: 8px;
+  letter-spacing: 1.5px;
+}
+
+/* =========================================
+   LISTA DE PROYECTOS
+========================================= */
+
+.projects-list {
+  position: relative;
+  z-index: 2;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.project-card {
+  --project-color: var(--yellow);
+
+  position: relative;
+
+  min-height: 290px;
+  padding: 30px 0;
+
+  display: grid;
+  grid-template-columns:
+    45px
+    minmax(230px, 0.75fr)
+    minmax(330px, 1.25fr)
+    110px;
+
+  gap: 35px;
+  align-items: center;
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+
+  overflow: hidden;
+
+  transition:
+    padding 0.4s ease,
+    background 0.4s ease;
+}
+
+.project-card::before {
+  content: "";
+
+  position: absolute;
+
+  top: 50%;
+  left: 30%;
+
+  width: 420px;
+  height: 420px;
+
+  border-radius: 50%;
+
+  background: var(--project-color);
+
+  filter: blur(150px);
+
+  opacity: 0;
+
+  transform: translate(-50%, -50%);
+
+  transition: opacity 0.5s ease;
+
+  pointer-events: none;
+}
+
+.project-card:hover {
+  padding-left: 20px;
+  padding-right: 20px;
+
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.project-card:hover::before {
+  opacity: 0.13;
+}
+
+.project-yellow {
+  --project-color: var(--yellow);
+}
+
+.project-cyan {
+  --project-color: var(--cyan);
+}
+
+.project-magenta {
+  --project-color: var(--magenta);
+}
+
+.project-white {
+  --project-color: var(--white);
+}
+
+/* =========================================
+   NÚMERO
+========================================= */
+
+.project-number {
+  position: relative;
+  z-index: 2;
+
+  align-self: start;
+
+  color: #666666;
+
+  font-family: "Courier New", monospace;
+  font-size: 9px;
+  font-weight: 700;
+}
+
+/* =========================================
+   VISUAL DEL PROYECTO
+========================================= */
+
+.project-visual {
+  position: relative;
+  z-index: 2;
+
+  width: 100%;
+  height: 190px;
+
+  display: grid;
+  place-items: center;
+
+  border: 1px solid rgba(255, 255, 255, 0.17);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.06),
+      transparent
+    ),
+    #0b0b0b;
+
+  overflow: hidden;
+
+  transition:
+    border-color 0.4s ease,
+    transform 0.4s ease;
+}
+
+.project-card:hover .project-visual {
+  border-color: var(--project-color);
+  transform: scale(1.025);
+}
+
+.project-visual::before,
+.project-visual::after {
+  content: "";
+
+  position: absolute;
+
+  width: 150%;
+  height: 1px;
+
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.project-visual::before {
+  transform: rotate(30deg);
+}
+
+.project-visual::after {
+  transform: rotate(-30deg);
+}
+
+.project-code {
+  position: relative;
+  z-index: 3;
+
+  color: var(--project-color);
+
+  font-family: "Courier New", monospace;
+  font-size: clamp(46px, 6vw, 82px);
+  font-weight: 700;
+  letter-spacing: -7px;
+
+  text-shadow:
+    3px 0 rgba(0, 232, 255, 0.25),
+    -3px 0 rgba(255, 43, 214, 0.22);
+
+  transition: transform 0.4s ease;
+}
+
+.project-card:hover .project-code {
+  transform: scale(1.1);
+}
+
+.project-shape {
+  position: absolute;
+
+  width: 115px;
+  height: 115px;
+
+  border: 1px solid var(--project-color);
+
+  transform: rotate(45deg);
+
+  opacity: 0.55;
+
+  transition:
+    transform 0.7s ease,
+    opacity 0.4s ease;
+}
+
+.project-card:hover .project-shape {
+  transform: rotate(135deg) scale(1.08);
+  opacity: 1;
+}
+
+.project-shape span {
+  position: absolute;
+  background: var(--project-color);
+}
+
+.project-shape span:first-child {
+  top: 50%;
+  left: 10%;
+
+  width: 80%;
+  height: 1px;
+}
+
+.project-shape span:last-child {
+  top: 10%;
+  left: 50%;
+
+  width: 1px;
+  height: 80%;
+}
+
+.project-visual small {
+  position: absolute;
+
+  left: 12px;
+  bottom: 10px;
+
+  color: #5f5f5f;
+
+  font-family: "Courier New", monospace;
+  font-size: 7px;
+  letter-spacing: 1px;
+}
+
+/* =========================================
+   INFORMACIÓN DEL PROYECTO
+========================================= */
+
+.project-information {
+  position: relative;
+  z-index: 2;
+}
+
+.project-category {
+  color: #777777;
+
+  font-family: "Courier New", monospace;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+.project-information h3 {
+  margin: 15px 0;
+
+  font-size: clamp(34px, 4.5vw, 68px);
+  line-height: 0.9;
+  letter-spacing: -3px;
+
+  transition: color 0.3s ease;
+}
+
+.project-card:hover .project-information h3 {
+  color: var(--project-color);
+}
+
+.project-information > p {
+  max-width: 650px;
+  margin: 0;
+
+  color: #929292;
+
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.project-services {
+  margin-top: 22px;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.project-services span {
+  padding: 6px 8px;
+
+  border: 1px solid rgba(255, 255, 255, 0.17);
+
+  color: #888888;
+
+  font-family: "Courier New", monospace;
+  font-size: 7px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+
+  transition:
+    color 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.project-card:hover .project-services span:first-child {
+  border-color: var(--project-color);
+  color: var(--project-color);
+}
+
+/* =========================================
+   ACCIÓN
+========================================= */
+
+.project-action {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 20px;
+}
+
+.project-action span {
+  color: #696969;
+
+  font-family: "Courier New", monospace;
+  font-size: 7px;
+  letter-spacing: 1px;
+
+  writing-mode: vertical-rl;
+}
+
+.project-action strong {
+  color: var(--project-color);
+
+  font-family: "Courier New", monospace;
+  font-size: 30px;
+
+  transition: transform 0.3s ease;
+}
+
+.project-card:hover .project-action strong {
+  transform: translate(6px, -6px);
+}
+
+/* =========================================
+   RESPONSIVE DE PROYECTOS
+========================================= */
+
+@media (max-width: 1000px) {
+  .project-card {
+    grid-template-columns:
+      35px
+      minmax(180px, 0.7fr)
+      1.3fr
+      50px;
+
+    gap: 20px;
+  }
+
+  .project-visual {
+    height: 160px;
+  }
+}
+
+@media (max-width: 800px) {
+  .projects-section {
+    padding: 100px 24px;
+  }
+
+  .projects-header {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .projects-header h2 {
+    letter-spacing: -5px;
+  }
+
+  .projects-header-description {
+    max-width: 550px;
+  }
+
+  .project-card {
+    padding: 35px 0;
+
+    grid-template-columns: 32px 1fr 35px;
+    gap: 15px;
+  }
+
+  .project-visual {
+    display: none;
+  }
+
+  .project-information {
+    grid-column: 2;
+  }
+
+  .project-action {
+    grid-column: 3;
+  }
+}
+
+@media (max-width: 600px) {
+  .projects-section {
+    padding-top: 85px;
+    padding-bottom: 85px;
+  }
+
+  .projects-header h2 {
+    font-size: clamp(42px, 13vw, 68px);
+    letter-spacing: -4px;
+  }
+
+  .project-information h3 {
+    font-size: 36px;
+    letter-spacing: -2px;
+  }
+
+  .project-information > p {
+    font-size: 13px;
+  }
+
+  .project-action span {
+    display: none;
+  }
+}
+
+
+
+/* =========================================
+   SECCIÓN — MÉTODO DE TRABAJO OTB
+========================================= */
+
+.method-section {
+  position: relative;
+
+  min-height: 100vh;
+  padding: 130px 6%;
+
+  background: var(--yellow);
+  color: var(--black);
+
+  overflow: hidden;
+}
+
+/* Grilla técnica de fondo */
+
+.method-section::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background-image:
+    linear-gradient(
+      rgba(0, 0, 0, 0.08) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.08) 1px,
+      transparent 1px
+    );
+
+  background-size: 65px 65px;
+
+  mask-image: linear-gradient(
+    to right,
+    black,
+    transparent 85%
+  );
+
+  pointer-events: none;
+}
+
+/* Texto gigante decorativo */
+
+.method-section::after {
+  content: "PROCESS";
+
+  position: absolute;
+
+  left: -25px;
+  bottom: -55px;
+
+  color: transparent;
+
+  font-size: clamp(130px, 23vw, 360px);
+  font-weight: 900;
+  line-height: 0.8;
+  letter-spacing: -18px;
+
+  -webkit-text-stroke: 1px rgba(0, 0, 0, 0.09);
+
+  pointer-events: none;
+}
+
+/* =========================================
+   INFORMACIÓN TÉCNICA
+========================================= */
+
+.method-system-data {
+  position: absolute;
+  z-index: 2;
+
+  top: 38px;
+  right: 6%;
+
+  display: flex;
+  gap: 30px;
+
+  color: rgba(0, 0, 0, 0.55);
+
+  font-family: "Courier New", monospace;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.method-section > .section-label {
+  position: relative;
+  z-index: 2;
+
+  color: rgba(0, 0, 0, 0.58);
+}
+
+/* =========================================
+   DISTRIBUCIÓN GENERAL
+========================================= */
+
+.method-layout {
+  position: relative;
+  z-index: 2;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 9%;
+
+  align-items: start;
+}
+
+/* =========================================
+   PRESENTACIÓN DEL MÉTODO
+========================================= */
+
+.method-introduction {
+  position: sticky;
+  top: 120px;
+}
+
+.method-introduction h2 {
+  margin: 30px 0;
+
+  font-size: clamp(48px, 6.8vw, 108px);
+  font-weight: 800;
+  line-height: 0.87;
+  letter-spacing: -7px;
+}
+
+.method-introduction h2 span {
+  color: var(--white);
+
+  -webkit-text-stroke: 1px var(--black);
+
+  text-shadow:
+    3px 0 rgba(0, 232, 255, 0.45),
+    -3px 0 rgba(255, 43, 214, 0.38);
+}
+
+.method-introduction > p {
+  max-width: 490px;
+  margin: 35px 0 0;
+
+  color: rgba(0, 0, 0, 0.68);
+
+  font-size: 18px;
+  line-height: 1.65;
+}
+
+/* =========================================
+   LÍNEA INPUT → EVOLUTION
+========================================= */
+
+.method-coordinate {
+  max-width: 490px;
+  margin-top: 50px;
+
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 14px;
+
+  font-family: "Courier New", monospace;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.method-coordinate div {
+  position: relative;
+
+  height: 1px;
+
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.method-coordinate div::after {
+  content: "";
+
+  position: absolute;
+
+  top: 50%;
+  right: 0;
+
+  width: 7px;
+  height: 7px;
+
+  border-top: 1px solid var(--black);
+  border-right: 1px solid var(--black);
+
+  transform:
+    translateY(-50%)
+    rotate(45deg);
+}
+
+/* =========================================
+   CONTENEDOR DE PASOS
+========================================= */
+
+.method-steps {
+  border-top: 2px solid var(--black);
+}
+
+/* =========================================
+   PASO INDIVIDUAL
+========================================= */
+
+.method-step {
+  position: relative;
+
+  min-height: 190px;
+  padding: 28px 0;
+
+  display: grid;
+  grid-template-columns: 65px 1fr 40px;
+  gap: 20px;
+  align-items: start;
+
+  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+
+  overflow: hidden;
+
+  transition:
+    padding 0.35s ease,
+    background 0.35s ease,
+    color 0.35s ease;
+}
+
+.method-step::before {
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  bottom: 0;
+
+  width: 0;
+  height: 100%;
+
+  background: var(--black);
+
+  transition: width 0.45s ease;
+}
+
+.method-step:hover {
+  padding-left: 20px;
+  padding-right: 20px;
+
+  color: var(--white);
+}
+
+.method-step:hover::before {
+  width: 100%;
+}
+
+/* =========================================
+   NÚMERO DEL PASO
+========================================= */
+
+.method-number {
+  position: relative;
+  z-index: 2;
+
+  font-family: "Courier New", monospace;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+/* =========================================
+   INFORMACIÓN DEL PASO
+========================================= */
+
+.method-step-content {
+  position: relative;
+  z-index: 2;
+}
+
+.method-step-code {
+  display: block;
+  margin-bottom: 14px;
+
+  color: rgba(0, 0, 0, 0.5);
+
+  font-family: "Courier New", monospace;
+  font-size: 7px;
+  font-weight: 700;
+  letter-spacing: 1.3px;
+
+  transition: color 0.35s ease;
+}
+
+.method-step:hover .method-step-code {
+  color: var(--yellow);
+}
+
+.method-step-content h3 {
+  margin: 0 0 12px;
+
+  font-size: clamp(27px, 3vw, 42px);
+  line-height: 1;
+  letter-spacing: -2px;
+}
+
+.method-step-content p {
+  max-width: 500px;
+  margin: 0;
+
+  color: rgba(0, 0, 0, 0.63);
+
+  font-size: 14px;
+  line-height: 1.6;
+
+  transition: color 0.35s ease;
+}
+
+.method-step:hover .method-step-content p {
+  color: #aaaaaa;
+}
+
+/* =========================================
+   FLECHA DEL PASO
+========================================= */
+
+.method-step-arrow {
+  position: relative;
+  z-index: 2;
+
+  justify-self: end;
+
+  font-family: "Courier New", monospace;
+  font-size: 25px;
+
+  transition:
+    color 0.35s ease,
+    transform 0.35s ease;
+}
+
+.method-step:hover .method-step-arrow {
+  color: var(--yellow);
+  transform: translate(5px, 5px);
+}
+
+/* Último paso */
+
+.method-step:last-child .method-step-arrow {
+  transform-origin: center;
+}
+
+.method-step:last-child:hover .method-step-arrow {
+  transform: translate(5px, -5px);
+}
+
+/* =========================================
+   RESPONSIVE DEL MÉTODO
+========================================= */
+
+@media (max-width: 950px) {
+  .method-layout {
+    grid-template-columns: 1fr;
+    gap: 80px;
+  }
+
+  .method-introduction {
+    position: relative;
+    top: auto;
+  }
+
+  .method-introduction > p {
+    max-width: 600px;
+  }
+
+  .method-coordinate {
+    max-width: 600px;
+  }
+
+  .method-steps {
+    max-width: 750px;
+  }
+}
+
+@media (max-width: 700px) {
+  .method-section {
+    padding: 100px 24px;
+  }
+
+  .method-system-data {
+    top: 28px;
+    right: 24px;
+
+    gap: 12px;
+  }
+
+  .method-system-data span:nth-child(2) {
+    display: none;
+  }
+
+  .method-introduction h2 {
+    font-size: clamp(42px, 13vw, 68px);
+    letter-spacing: -4px;
+  }
+
+  .method-introduction > p {
+    font-size: 16px;
+  }
+
+  .method-step {
+    grid-template-columns: 40px 1fr 25px;
+    gap: 12px;
+  }
+
+  .method-step-content h3 {
+    font-size: 30px;
+  }
+
+  .method-step:hover {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+}
